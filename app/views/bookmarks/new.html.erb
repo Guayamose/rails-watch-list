@@ -1,0 +1,103 @@
+<% movies_not_in_list = Movie.all - (@list&.movies || []) %>
+<input type="search" name="search" id="search" class="form-control mt-5 mx-auto w-75" placeholder="Search for a movie">
+<%= link_to "Go Back", lists_path, class: "btn btn-dark  d-flex justify-content-center w-25 mx-auto mt-3 border-radius-0"  %>
+<div class="row row-cols-1 row-cols-md-5 g-4 m-3">
+  <% movies_not_in_list.each do |movie| %>
+    <div class="col">
+    <div class="card h-100 movie-card">
+      <img src="<%= movie.poster_url %>" class="card-img-top movie-poster" alt="...">
+      <div class="card-body">
+        <h5 class="card-title movie-title"><%= movie.title %></h5>
+        <div>
+        <p class="card-text hidden-content"><%= movie.overview %></p>
+         <button class="read-more-button btn btn-dark">See More</button>
+        <%= link_to "Bookmark",
+           list_bookmarks_path(@list, bookmark: { movie_id: movie.id, comment: "Added it now" }),
+           data: { turbo_method: :post, turbo_confirm: "Add this movie to the list?", turbo_frame: "_top" },
+           class: "btn btn-dark" %>
+        </div>
+      </div>
+      <div class="rating-box">
+        <small class="rating"> Rating: <%= movie.rating %> </small>
+      </div>
+    </div>
+  </div>
+  <% end %>
+</div>
+
+
+
+
+
+<style>
+
+  /* contenedor de tarjetas */
+
+  .movie-poster {
+    border-radius: 16px;
+  }
+  .movie-card {
+    background-color: #6c6c6cff;
+    border-radius: 16px;
+  }
+  .body {
+    background-color: black;
+  }
+  .movie-title {
+    font-family: "Helvetica", sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    color: #000000a3;
+  }
+  .rating {
+    font-family: "Helvetica", cursive, sans-serif;
+    font-style: italic;
+    font-weight: bold;
+    font-size: 20px;
+    color: #006900a3;
+
+  }
+
+  .rating-box {
+    background-color: #999999ff;
+    height: 50px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    border-radius: 0px 0px 16px 16px;
+  }
+
+  .rating {
+    margin-left: 10px;
+  }
+
+  .hidden-content {
+    display: none; /* Hides the content by default */
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const readMoreButtons = document.querySelectorAll('.read-more-button');
+  readMoreButtons.forEach(button => button.addEventListener('click', toggleHiddenContent));
+});
+
+function toggleHiddenContent(event) {
+  const card = event.target.closest('.card');
+  const hiddenContent = card.querySelector('.hidden-content');
+  const isHidden = getComputedStyle(hiddenContent).display === 'none';
+  hiddenContent.style.display = isHidden ? 'block' : 'none';
+}
+
+document.addEventListener('input', e => {
+  if (e.target.id !== 'search') return;
+  const q = e.target.value.toLowerCase().trim();
+  document.querySelectorAll('.movie-card').forEach(card => {
+    const col = card.closest('.col');
+    const title = card.querySelector('.movie-title')?.textContent.toLowerCase() || '';
+    col.classList.toggle('d-none', q && !title.includes(q)); // remove from layout -> no gaps
+  });
+});
+
+
+</script>
