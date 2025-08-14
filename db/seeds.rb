@@ -30,5 +30,8 @@ puts "Creating movies.... \n"
       overview: movie_hash['overview']
     )
   end
+#use faker to create 20 lists of movies categories
+
+
 end
 puts "... created #{Movie.count} movies."

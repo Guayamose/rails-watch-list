@@ -1,8 +1,86 @@
-<h1><%= @list.name %></h1>
-
+<h1 class="text-center"><%= @list.name %></h1>
+<div class="d-flex justify-content-center w-100">
+<%= link_to "New Bookmark", new_list_bookmark_path(list_id: @list.id), class: "btn btn-primary mt-3 mx-3 rounded-5" %>
+<%= link_to "Back", lists_path, class: "btn btn-dark mt-3 mx-3 rounded-5" %>
+</div>
+<div class="row row-cols-1 row-cols-md-5 g-4 m-3">
 <% @list.bookmarks.each do |bookmark| %>
-  <p><%= bookmark.movie.title %></p>
+  <div class="col">
+    <div class="card w-100 h-100 movie-card">
+      <img src="<%= bookmark.movie.poster_url %>" class="card-img-top movie-poster" alt="...">
+      <div class="card-body">
+        <h5 class="card-title movie-title"><%= bookmark.movie.title %></h5>
+        <div>
+        <p class="card-text hidden-content"><%= bookmark.movie.overview %></p>
+         <button class="read-more-button btn btn-dark">See More</button>
+        </div>
+      </div>
+      <div class="rating-box">
+        <small class="rating"> Rating: <%= bookmark.movie.rating %> </small>
+      </div>
+    </div>
+  </div>
 <% end %>
+</div>
 
-<%= link_to "New Bookmark", new_list_bookmark_path(list_id: @list.id) %>
-<%= link_to "Back", lists_path %>
+<style>
+
+  /* contenedor de tarjetas */
+
+  .movie-poster {
+    border-radius: 16px;
+  }
+  .movie-card {
+    background-color: #6c6c6cff;
+    border-radius: 16px;
+    width: 20%;
+  }
+  .body {
+    background-color: black;
+  }
+  .movie-title {
+    font-family: "Helvetica", sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    color: #000000a3;
+  }
+  .rating {
+    font-family: "Helvetica", cursive, sans-serif;
+    font-style: italic;
+    font-weight: bold;
+    font-size: 20px;
+    color: #006900a3;
+
+  }
+
+  .rating-box {
+    background-color: #999999ff;
+    height: 50px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    border-radius: 0px 0px 16px 16px;
+  }
+
+  .rating {
+    margin-left: 10px;
+  }
+
+  .hidden-content {
+    display: none; /* Hides the content by default */
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const readMoreButtons = document.querySelectorAll('.read-more-button');
+  readMoreButtons.forEach(button => button.addEventListener('click', toggleHiddenContent));
+});
+
+function toggleHiddenContent(event) {
+  const card = event.target.closest('.card');
+  const hiddenContent = card.querySelector('.hidden-content');
+  const isHidden = getComputedStyle(hiddenContent).display === 'none';
+  hiddenContent.style.display = isHidden ? 'block' : 'none';
+}
+</script>

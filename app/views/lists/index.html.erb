@@ -1,6 +1,13 @@
-<h1>Lists</h1>
-
-<% @lists.each do |list| %>
-  <%= link_to list.name, list_path(list) %>
-<% end %>
-<%= link_to "New List", new_list_path %>
+<h1 class="text-center">Lists</h1>
+<%= link_to "New List", new_list_path, class: "btn btn-primary d-flex justify-content-center w-25 mx-auto my-3 rounded-5" %>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+  <% @lists.each do |list| %>
+    <div class="col">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title"><%= link_to list.name, list_path(list) %></h5>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
