@@ -2,12 +2,29 @@
 <%= link_to "New List", new_list_path, class: "btn btn-primary d-flex justify-content-center w-25 mx-auto my-3 rounded-5" %>
 <div class="row row-cols-1 row-cols-md-3 g-4">
   <% @lists.each do |list| %>
-    <div class="col">
-      <div class="card h-100">
-        <div class="card-body">
-          <h5 class="card-title"><%= link_to list.name, list_path(list) %></h5>
-        </div>
-      </div>
-    </div>
+    <div class="card-category my-5 mx-auto w-30" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/breakfast.jpg)">
+   <h5 class="card-title"><%= link_to list.name, list_path(list), class: "text-white text-decoration-none" %></h5>
+</div>
   <% end %>
 </div>
+<style>
+  .card-category {
+  background-size: cover;
+  background-position: center;
+  height: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  border-radius: 5px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+.w-30 {
+  width: 30%;
+}
+
+</style>
