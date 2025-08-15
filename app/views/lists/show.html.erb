@@ -3,8 +3,13 @@
 <h1 class="text-center title"><%= @list.name %></h1>
 <div class="d-flex justify-content-center w-100">
 <%= link_to "New Bookmark", new_list_bookmark_path(list_id: @list.id), class: "btn btn-primary mt-3 mx-3 rounded-5" %>
-<%= link_to "Back", lists_path, class: "btn btn-dark mt-3 mx-3 rounded-5" %>
+<%= link_to "Back", lists_path, class: "btn btn-primary mt-3 mx-3 rounded-5" %>
 </div>
+<%= link_to "Delete List",
+            list_path(@list, list: { list_id: @list.id, comment: "Deleted it now" }),
+            data: { turbo_method: :delete, turbo_confirm: "Delete this list?", turbo_frame: "_top" },
+            class: "d-flex justify-content-center w-15 mx-auto btn btn-danger mt-3 rounded-5" %>
+
 <div class="row row-cols-1 row-cols-md-5 g-4 m-3">
 <% @list.bookmarks.each do |bookmark| %>
   <div class="col">
@@ -28,6 +33,10 @@
 <style>
 
   /* contenedor de tarjetas */
+  .w-15 {
+    width: 239px;
+  }
+
 .title {
     margin-top: 50px;
     font-family: "Helvetica", sans-serif;
