@@ -1,6 +1,10 @@
 <% movies_not_in_list = Movie.all - (@list&.movies || []) %>
-<input type="search" name="search" id="search" class="form-control mt-5 mx-auto w-75" placeholder="Search for a movie">
-<%= link_to "Go Back", lists_path, class: "btn btn-dark  d-flex justify-content-center w-25 mx-auto mt-3 border-radius-0"  %>
+<div class="form__group field">
+  <input type="input" class="form__field" placeholder="Search for a movie" name="search" id='search' required />
+  <label for="name" class="form__label">Search for a movie</label>
+</div>
+
+<%= link_to "Go Back", lists_path, class: "btn btn-secondary rounded-5 d-flex justify-content-center w-25 mx-auto mt-3"  %>
 
 
 <div class="row row-cols-1 row-cols-md-5 g-4 m-3">
@@ -34,13 +38,24 @@
 <style>
 
   /* contenedor de tarjetas */
-
+  body {
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-size: 1.5rem;
+  background-color:#222222;
+}
   .movie-poster {
     border-radius: 16px;
   }
   .movie-card {
     background-color: #6c6c6cff;
     border-radius: 16px;
+    border-color: #004545ff;
+    border-width: 0px;
   }
   .body {
     background-color: black;
@@ -56,7 +71,7 @@
     font-style: italic;
     font-weight: bold;
     font-size: 20px;
-    color: #006900a3;
+    color: #1b1b1ba3;
 
   }
 
