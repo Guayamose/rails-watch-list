@@ -1,5 +1,11 @@
 <%= form_with model: @list do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name, class: 'form-control' %>
-  <%= f.submit 'Submit', class: 'btn btn-primary mt-3' %>
+  <div class="form__group field w-100 h-10 mx-auto d-flex align-items-center">
+    <%= f.text_field :name, class: 'form__field', placeholder: "Name of the list", required: true %>
+    <%= f.label :name, "Name of the list", class: 'form__label' %>
+  </div>
+
+  <div class="d-flex w-100 h-10 justify-content-center">
+    <%= f.submit 'Submit', class: 'btn btn-primary mt-3 mx-3 rounded-5' %>
+    <%= link_to 'Back', lists_path, class: "btn btn-primary mt-3 mx-3 rounded-5"%>
+  </div>
 <% end %>

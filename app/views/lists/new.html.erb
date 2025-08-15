@@ -1,5 +1,27 @@
-<h1>Create a new list</h1>
+<%= image_tag "index_photos/faded_gallery-OfdOEdGYiuk-unsplash.jpg", alt: "text", class: "background" %>
+<div class="d-flex flex-column align-items-center my-3">
+<h1 class="text-center title">Create a new list</h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Back', lists_path %>
+</div>
+
+
+<style>
+  .title {
+    margin-top: 50px;
+    font-family: "Helvetica", sans-serif;
+    font-weight: bold;
+    font-size: 60px;
+    color: #ffffffca;
+  }
+  .background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+  }
+</style>
